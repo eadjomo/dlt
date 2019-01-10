@@ -1,0 +1,24 @@
+{
+	"format": "orc",
+	"structures": [{
+		"name": "RF19_FOURN",
+		"tablename": "RF19_FOURN",
+		"fields": [{
+			"name": "DATE_TECH",
+			"fieldType": "String",
+			"comment": "comment DATE_TECH"
+		},
+		{
+			"name": "RF19_LIB_FOURN",
+			"fieldType": "String",
+			"comment": "comment RF19_LIB_FOURN "
+		},{
+			"name": "RF19_COD_FOURN",
+			"fieldType": "String",
+			"comment": "comment RF19_COD_FOURN "
+		}
+		],
+		"outputPath": "hdfs://bigopeclu/app/staging/t2r/irn_67491_dll/jobs/BQV/outputData/RF19_FOURN"
+	}]
+
+}

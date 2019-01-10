@@ -1,0 +1,42 @@
+                                                                                                                bbbbbbbb
+                                      OOOOOOOOO     kkkkkkkk                             lllllll                  b::::::b
+                                    OO:::::::::OO   k::::::k                             l:::::l                  b::::::b
+                                  OO:::::::::::::OO k::::::k                             l:::::l                  b::::::b
+                                 O:::::::OOO:::::::Ok::::::k                             l:::::l                   b:::::b
+                                 O::::::O   O::::::O k:::::k    kkkkkkkuuuuuu    uuuuuu   l::::l   aaaaaaaaaaaaa   b:::::bbbbbbbbb
+                                 O:::::O     O:::::O k:::::k   k:::::k u::::u    u::::u   l::::l   a::::::::::::a  b::::::::::::::bb
+                                 O:::::O     O:::::O k:::::k  k:::::k  u::::u    u::::u   l::::l   aaaaaaaaa:::::a b::::::::::::::::b
+ --------------- --------------- O:::::O     O:::::O k:::::k k:::::k   u::::u    u::::u   l::::l            a::::a b:::::bbbbb:::::::b --------------- ---------------
+ -:::::::::::::- -:::::::::::::- O:::::O     O:::::O k::::::k:::::k    u::::u    u::::u   l::::l     aaaaaaa:::::a b:::::b    b::::::b -:::::::::::::- -:::::::::::::-
+ --------------- --------------- O:::::O     O:::::O k:::::::::::k     u::::u    u::::u   l::::l   aa::::::::::::a b:::::b     b:::::b --------------- ---------------
+                                 O:::::O     O:::::O k:::::::::::k     u::::u    u::::u   l::::l  a::::aaaa::::::a b:::::b     b:::::b
+                                 O::::::O   O::::::O k::::::k:::::k    u:::::uuuu:::::u   l::::l a::::a    a:::::a b:::::b     b:::::b
+                                 O:::::::OOO:::::::Ok::::::k k:::::k   u:::::::::::::::uul::::::la::::a    a:::::a b:::::bbbbbb::::::b
+                                  OO:::::::::::::OO k::::::k  k:::::k   u:::::::::::::::ul::::::la:::::aaaa::::::a b::::::::::::::::b
+                                    OO:::::::::OO   k::::::k   k:::::k   uu::::::::uu:::ul::::::l a::::::::::aa:::ab:::::::::::::::b
+                                      OOOOOOOOO     kkkkkkkk    kkkkkkk    uuuuuuuu  uuuullllllll  aaaaaaaaaa  aaaabbbbbbbbbbbbbbbb
+                                                         DDDDDDDDDDDDD       TTTTTTTTTTTTTTTTTTTTTTTLLLLLLLLLLL
+                                                         D::::::::::::DDD    T:::::::::::::::::::::TL:::::::::L
+                                                         D:::::::::::::::DD  T:::::::::::::::::::::TL:::::::::L
+                                                         DDD:::::DDDDD:::::D T:::::TT:::::::TT:::::TLL:::::::LL
+                                                           D:::::D    D:::::DTTTTTT  T:::::T  TTTTTT  L:::::L
+                                                           D:::::D     D:::::D       T:::::T          L:::::L
+                                                           D:::::D     D:::::D       T:::::T          L:::::L
+                                         ---------------   D:::::D     D:::::D       T:::::T          L:::::L                ---------------
+                                         -:::::::::::::-   D:::::D     D:::::D       T:::::T          L:::::L                -:::::::::::::-  ${pom.version}
+                                         ---------------   D:::::D     D:::::D       T:::::T          L:::::L                ---------------
+                                                           D:::::D     D:::::D       T:::::T          L:::::L
+                                                           D:::::D    D:::::D        T:::::T          L:::::L         LLLLLL
+                                                         DDD:::::DDDDD:::::D       TT:::::::TT      LL:::::::LLLLLLLLL:::::L
+                                                         D:::::::::::::::DD        T:::::::::T      L::::::::::::::::::::::L
+                                                         D::::::::::::DDD          T:::::::::T      L::::::::::::::::::::::L
+                                                         DDDDDDDDDDDDD             TTTTTTTTTTT      LLLLLLLLLLLLLLLLLLLLLLLL
+
+hdfs url=hdfs://127.0.0.1:12345
+Spark Session variable:sc
+Hive Context variable :sqlc
+Elastic Client:elasticsearch_test:9002
+Kafka Client:localhost:9092
+Hbase cluster:hbaseLocalCluster
+Zookeeper:localhost:2181
+FileSystem variable:fsContext

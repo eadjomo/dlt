@@ -1,0 +1,4 @@
+{
+	"path": "hdfs://bigopeclu/app/staging/t2r/irn_67491_dll/jobs/BQV/inputData",
+	"format": "orc"
+}

@@ -1,0 +1,26 @@
+{
+	"name": "orc",
+	"fields": [{
+			"name": "swid",
+			"fieldType": "String",
+			"comment": "comment swid"
+		},
+		{
+			"name": "birth_dt",
+			"fieldType": "String",
+			"comment": "comment AGE "
+		},{
+			"name": "gender_cd",
+			"fieldType": "String",
+			"comment": "comment gender_cd "
+		}
+	]
+	"computedFields": [
+		{
+			"name": "Compfield2",
+			"comment": "Third test field",
+			"fieldType": "String",
+			"sqlCommand": "concat_ws(gender_cd, birth_dt)"
+		}
+	]
+}

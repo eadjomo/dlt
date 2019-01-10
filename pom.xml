@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.okulab</groupId>
+    <artifactId>dlt</artifactId>
+    <packaging>pom</packaging>
+    <version>2.2.0-SNAPSHOT</version>
+
+    <modules>
+        <module>dlt-fs</module>
+        <module>dlt-test</module>
+        <module>dlt-commons</module>
+        <module>dlt-reporter</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:https://git@github.com/okulab/dlt.git</connection>
+        <developerConnection>scm:git:https://git@github.com/okulab/dlt.git</developerConnection>
+    </scm>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+        </profile>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suffix.test>(?&lt;!Integration)(Test|Case|Suite|Spec)</suffix.test>
+                <suffix.it>(?&lt;=Integration)(Test|Case|Suite|Spec)</suffix.it>
+            </properties>
+        </profile>
+    </profiles>
+
+
+    <properties>
+        <embedded-elasticsearch.version>2.7.0</embedded-elasticsearch.version>
+        <elasticsearch.version>6.3.0</elasticsearch.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <maven.compiler.plugin>3.5.1</maven.compiler.plugin>
+        <maven.surefire.plugin>2.19.1</maven.surefire.plugin>
+        <maven.assembly.plugin>3.1.0</maven.assembly.plugin>
+        <maven.release.plugin>2.5.3</maven.release.plugin>
+        <maven.scala.plugin>3.2.1</maven.scala.plugin>
+        <maven.shade.plugin>3.1.0</maven.shade.plugin>
+        <maven.dependency.plugin>3.0.2</maven.dependency.plugin>
+        <maven.resources.plugin>3.0.2</maven.resources.plugin>
+        <maven.scalatest.plugin>1.0</maven.scalatest.plugin>
+        <maven.scalastyle.plugin>0.8.0</maven.scalastyle.plugin>
+        <maven.build-helper.plugin>3.0.0</maven.build-helper.plugin>
+
+        <scala.compat.version>2.11</scala.compat.version>
+        <scala.version>${scala.compat.version}.8</scala.version>
+        <scalatest.version>3.0.4</scalatest.version>
+        <junit.version>3.8.1</junit.version>
+
+        <spark.version>2.3.0.2.6.5.0-292</spark.version>
+        <spark-csv.version>1.5.0</spark-csv.version>
+        <spark-xml.version>0.4.1</spark-xml.version>
+        <spark-avro.version>4.0.0</spark-avro.version>
+        <spark-excel.version>0.9.5</spark-excel.version>
+        <snappy-spark-tags.version>2.1.1.1</snappy-spark-tags.version>
+        <snappy-spark-unsafe.version>2.1.1.1</snappy-spark-unsafe.version>
+
+        <kafka.version>0.10.1.2.6.4.0-91</kafka.version>
+
+        <hbase.version>1.1.2.2.6.3.0-235</hbase.version>
+
+        <hadoop-mini-clusters-common.version>0.1.15</hadoop-mini-clusters-common.version>
+        <hadoop-mini-clusters-hdfs.version>0.1.15</hadoop-mini-clusters-hdfs.version>
+        <hadoop-mini-clusters-zookeeper.version>0.1.15</hadoop-mini-clusters-zookeeper.version>
+        <hadoop-mini-clusters-kafka.version>0.1.15</hadoop-mini-clusters-kafka.version>
+        <hadoop-mini-clusters-hbase.version>0.1.15</hadoop-mini-clusters-hbase.version>
+
+
+        <slf4j-api.version>1.7.25</slf4j-api.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
+        <log4j.version>2.9.0</log4j.version>
+
+        <oozie-client.version>4.2.0</oozie-client.version>
+        <groovy-all.version>2.4.12</groovy-all.version>
+        <groovy-common-extensions.version>0.7.0</groovy-common-extensions.version>
+        <gateway-shell.version>0.13.0</gateway-shell.version>
+        <commons-cli.version>1.4</commons-cli.version>
+        <commons-email.version>1.3.2</commons-email.version>
+        <assertj-core.version>3.8.0</assertj-core.version>
+        <pegdown.version>1.2.1</pegdown.version>
+        <lombok.version>1.16.18</lombok.version>
+        <jcommander.version>1.48</jcommander.version>
+        <lift-json.version>2.6.3</lift-json.version>
+        <typesafe.version>1.3.2</typesafe.version>
+        <guava.version>18.0</guava.version>
+        <jpmml.converter.version>1.2.5</jpmml.converter.version>
+        <jpmml.evaluator.version>1.4.4</jpmml.evaluator.version>
+        <tensorflow.proto>[1.3.0, )</tensorflow.proto>
+        <tensorflow.tensorflow>[1.1.0, )</tensorflow.tensorflow>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scalap</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.compat.version}</artifactId>
+            <version>${scalatest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- required by scalatest-maven-plugin to generate HTML report -->
+        <dependency>
+            <groupId>org.pegdown</groupId>
+            <artifactId>pegdown</artifactId>
+            <version>${pegdown.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- spark -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_${scala.compat.version}</artifactId>
+            <version>${spark.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.jackson</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-hive_${scala.compat.version}</artifactId>
+            <version>${spark.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.jackson</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_${scala.compat.version}</artifactId>
+            <version>${spark.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.jackson</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- dlt project -->
+            <dependency>
+                <groupId>com.github.okulab</groupId>
+                <artifactId>dlt-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.okulab</groupId>
+                <artifactId>dlt-commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.okulab.dlt-reporter</groupId>
+                <artifactId>dlt-reporter-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.okulab.dlt-reporter</groupId>
+                <artifactId>dlt-reporter-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.okulab.dlt-reporter</groupId>
+                <artifactId>dlt-reporter-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.okulab</groupId>
+                <artifactId>dlt-fs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>${commons-email.version}</version>
+            </dependency>
+
+            <!-- scala -->
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-compiler</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scalap</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest_${scala.compat.version}</artifactId>
+                <version>${scalatest.version}</version>
+            </dependency>
+
+            <!-- hadoop mini cluster -->
+            <dependency>
+                <groupId>com.github.sakserv</groupId>
+                <artifactId>hadoop-mini-clusters-common</artifactId>
+                <version>${hadoop-mini-clusters-common.version}</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.sakserv</groupId>
+                <artifactId>hadoop-mini-clusters-hdfs</artifactId>
+                <version>${hadoop-mini-clusters-hdfs.version}</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.sakserv</groupId>
+                <artifactId>hadoop-mini-clusters-zookeeper</artifactId>
+                <version>${hadoop-mini-clusters-zookeeper.version}</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.sakserv</groupId>
+                <artifactId>hadoop-mini-clusters-kafka</artifactId>
+                <version>${hadoop-mini-clusters-kafka.version}</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>lz4</artifactId>
+                        <groupId>net.jpountz.lz4</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.sakserv</groupId>
+                <artifactId>hadoop-mini-clusters-hbase</artifactId>
+                <version>${hadoop-mini-clusters-hbase.version}</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- required by scalatest-maven-plugin to generate HTML report -->
+            <dependency>
+                <groupId>org.pegdown</groupId>
+                <artifactId>pegdown</artifactId>
+                <version>1.2.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>pl.allegro.tech</groupId>
+                <artifactId>embedded-elasticsearch</artifactId>
+                <version>${embedded-elasticsearch.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <!-- Config and logging -->
+            <!-- https://mvnrepository.com/artifact/net.liftweb/lift-json -->
+            <dependency>
+                <groupId>net.liftweb</groupId>
+                <artifactId>lift-json_2.10</artifactId>
+                <version>${lift-json.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.typesafe</groupId>
+                <artifactId>config</artifactId>
+                <version>${typesafe.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
+
+            <!-- Spark -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.compat.version}</artifactId>
+                <version>${spark.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.crealytics</groupId>
+                <artifactId>spark-excel_${scala.compat.version}</artifactId>
+                <version>${spark-excel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.snappydata</groupId>
+                <artifactId>snappy-spark-unsafe_${scala.compat.version}</artifactId>
+                <version>${snappy-spark-unsafe.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.snappydata</groupId>
+                <artifactId>snappy-spark-tags_${scala.compat.version}</artifactId>
+                <version>${snappy-spark-tags.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.beust</groupId>
+                <artifactId>jcommander</artifactId>
+                <version>${jcommander.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.databricks</groupId>
+                <artifactId>spark-csv_${scala.compat.version}</artifactId>
+                <version>${spark-csv.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.databricks</groupId>
+                <artifactId>spark-xml_${scala.compat.version}</artifactId>
+                <version>${spark-xml.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.databricks</groupId>
+                <artifactId>spark-avro_${scala.compat.version}</artifactId>
+                <version>${spark-avro.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-protocol</artifactId>
+                <version>${hbase.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Hbase Rest Server -->
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-rest</artifactId>
+                <version>${hbase.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Hbase Client -->
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-client</artifactId>
+                <version>${hbase.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Hbase Testing Util -->
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-testing-util</artifactId>
+                <version>${hbase.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://central.maven.org/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repo1</id>
+            <url>http://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>hortonworks</id>
+            <name>hortonworks repo</name>
+            <url>http://repo.hortonworks.com/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>elasticsearch_sonatype-oss</id>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+
+        <testResources>
+            <testResource>
+                <directory>src/it/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.scalastyle</groupId>
+                    <artifactId>scalastyle-maven-plugin</artifactId>
+                    <version>${maven.scalastyle.plugin}</version>
+                    <configuration>
+                        <verbose>false</verbose>
+                        <failOnViolation>false</failOnViolation>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <failOnWarning>false</failOnWarning>
+                        <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
+                        <testSourceDirectory>${project.basedir}/src/test/scala</testSourceDirectory>
+                        <configLocation>src/main/resources/scalastyle-config.xml</configLocation>
+                        <outputFile>target/scalastyle-${project.name}-output.xml</outputFile>
+                        <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven.shade.plugin}</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                            <configuration>
+                                <transformers>
+                                    <!-- add Main-Class to manifest file -->
+                                    <transformer
+                                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        <mainClass>Main</mainClass>
+                                    </transformer>
+                                    <transformer
+                                            implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                    <transformer
+                                            implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                        <resource>META-INF/services/org.apache.lucene.codecs.Codec</resource>
+                                    </transformer>
+                                    <transformer
+                                            implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                        <resource>META-INF/services/org.apache.lucene.codecs.DocValuesFormat</resource>
+                                    </transformer>
+                                    <transformer
+                                            implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                        <resource>META-INF/services/org.apache.lucene.codecs.PostingsFormat</resource>
+                                    </transformer>
+                                </transformers>
+                                <filters>
+                                    <filter>
+                                        <artifact>*:*</artifact>
+                                        <excludes>
+                                            <exclude>META-INF/*.SF</exclude>
+                                            <exclude>META-INF/*.DSA</exclude>
+                                            <exclude>META-INF/*.RSA</exclude>
+                                        </excludes>
+                                    </filter>
+                                </filters>
+                                <shadedClassifierName>uber</shadedClassifierName>
+                                <shadedArtifactAttached>false</shadedArtifactAttached>
+                            </configuration>
+
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven.resources.plugin}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${maven.build-helper.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/test/scala</source>
+                                <source>src/it/scala</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--scalatest -->
+            <plugin>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest-maven-plugin</artifactId>
+                <version>${maven.scalatest.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>IntegrationTest</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>UnitTest</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${maven.scala.plugin}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <args>
+                                <arg>-dependencyfile</arg>
+                                <arg>${project.build.directory}/.scala_dependencies</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin}</version>
+                <configuration>
+                    <useFile>false</useFile>
+                    <disableXmlReport>true</disableXmlReport>
+                    <!-- If you have classpath issue like NoDefClassError,... -->
+                    <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+                    <includes>
+                        <include>**/*Test.*</include>
+                        <include>**/*Suite.*</include>
+                    </includes>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven.release.plugin}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.assembly.plugin}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

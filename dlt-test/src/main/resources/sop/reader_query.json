@@ -1,0 +1,4 @@
+{
+	"query": "select * from drg",
+	"format": "query"
+}
