@@ -479,7 +479,7 @@ class UtilsIntegrationSpec extends FeatureSpec with SparkSqlSpec with LocalClust
       hdfslist.size should equal(2)
     }
   }
-  feature("to test the uncompress")
+ /* feature("to test the uncompress")
   {
     scenario("test for unzip for zip ")
     {
@@ -534,5 +534,5 @@ class UtilsIntegrationSpec extends FeatureSpec with SparkSqlSpec with LocalClust
       filelist.size should equal(1)
     }
 
-  }
+  }*/
 }
